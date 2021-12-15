@@ -42,7 +42,7 @@ Temporada <- readline(prompt="Favor ingresar temporada de monitoreo: ")
     definir temporada con la extención sheet ="
 
 
-df <- read_xlsx("PARQUE NACIONAL SANTA ROSA.xlsm", 
+df <- read_xlsx("Datos.xlsm", 
                sheet = "F 2017 Indicador 2", range = "B5:L370", col_names = TRUE, na ="")
 
 View(df)
