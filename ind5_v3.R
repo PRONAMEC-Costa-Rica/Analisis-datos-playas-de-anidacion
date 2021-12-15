@@ -1,12 +1,12 @@
-"Descripci髇: Este script forma parte del protocolo para el monitoreo ecol骻ico de las playas de anidaci髇
-de tortugas marinas. Este script unifica los datos del indicador 5 (Temperatura de incubaci髇 de las nidadas
+"Descripci贸n: Este script forma parte del protocolo para el monitoreo ecol贸gico de las playas de anidaci贸n
+de tortugas marinas. Este script unifica los datos del indicador 5 (Temperatura de incubaci贸n de las nidadas
 
-Creaci髇: 8 de septiembre 2020
-Modificaci髇: 21 de septiembre 2020
+Creaci贸n: 8 de septiembre 2020
+Modificaci贸n: 21 de septiembre 2020
 Autora: Abelis
 "
 
-library (readxl) # lectura archivos de excel con funci髇 read_xlsx
+library (readxl) # lectura archivos de excel con funci贸n read_xlsx
 library(data.table)
 #library(openxlsx) #leer archivos grandes de excel
 library (readxl) #definir tipos de variables
@@ -16,13 +16,13 @@ library(janitor) #cambiar formato de fecha de excel a yyyy-mm-dd
 #Limpiar escritorio de trabajo
 rm(list = ls())
 
-# Definir area de conservaci髇, area silvestre protegida
-##  Nombre de area de conservaci髇
-AC <- readline(prompt="Favor ingresar nombre de 醨ea de conservaci髇: ")
+# Definir area de conservaci贸n, area silvestre protegida
+##  Nombre de area de conservaci贸n
+AC <- readline(prompt="Favor ingresar nombre de 谩rea de conservaci贸n: ")
 ACOPAC  
 
 ## Nombre de area silvestre protegida
-ASP <- readline(prompt="Favor ingresar nombre de 醨ea silvestre protegida: ")
+ASP <- readline(prompt="Favor ingresar nombre de 谩rea silvestre protegida: ")
 RNVSPHPM  
 
 #Definir especie
@@ -36,16 +36,16 @@ Temporada  <- readline(prompt="Favor ingresar temporada: ")
 
 ## Importar datos
 
-df <- read_xlsx("C:/Users/Isabel/Desktop/PPS/Proyecto PRONAMEC/Bases de datos/PARQUE NACIONAL SANTA ROSA.xlsm", 
+df <- read_xlsx("PARQUE NACIONAL SANTA ROSA.xlsm", 
                 sheet = "F 2017 Verde Indicador 5", skip = 2)
 
 View(df)
 
 
 ## Definir variables
-#definir cantidad de nidos para definir n鷐ero de columnas!
+#definir cantidad de nidos para definir n煤mero de columnas!
 
-    #Indices para selecci髇 de columnas
+    #Indices para selecci贸n de columnas
       num_col_tot <- length(df)
       a<-seq(2,num_col_tot,4) #seleccionar columnas de fecha
       b<-seq(3,num_col_tot,4) #seleccionar columnas de temperatura
@@ -83,12 +83,12 @@ View(df1)
 #vector con longitud de columnas de temperatura
 len<- c()
 for (i in a){
-  len[i]<-length(df[i][!is.na(df[i])]) #n鷐ero de filas
+  len[i]<-length(df[i][!is.na(df[i])]) #n煤mero de filas
 }
 len<- len[!is.na(len)]
 
 
-# Definir n鷐ero de nido (c骴igo)
+# Definir n煤mero de nido (c贸digo)
 for (i in 1:len[1]){
   df1$Codigo[i]<- 1
 for (i in len[1]+1:sum(len[2]))
@@ -113,10 +113,10 @@ View(df1)
 ##Visualizacion de datos
 
 # Diagrama de cajas
-ggplot(df_ind3_4, aes(x=mes_, y=eclosi髇)) + 
+ggplot(df_ind3_4, aes(x=mes_, y=eclosi贸n)) + 
   geom_boxplot() +  theme_bw() +
   stat_summary(fun = "mean", color="red")+
   theme(panel.grid.major = element_blank(),panel.grid.minor = element_blank())+
-  labs(x ="Fecha (AAAA-MM)", y = "Porcentaje de eclosi髇 (%)") 
+  labs(x ="Fecha (AAAA-MM)", y = "Porcentaje de eclosi贸n (%)") 
 
 
