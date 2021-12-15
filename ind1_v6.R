@@ -1,4 +1,4 @@
-"Descripci?n: Este script forma parte del protocolo para el monitoreo ecol?gico de las playas de anidaci?n
+"Descripción: Este script forma parte del protocolo para el monitoreo ecol?gico de las playas de anidaci?n
 de tortugas marinas. Este script unifica los datos del indicador 1 (?rea f?sica disponible como sitio de 
 anidaci?n)
 
