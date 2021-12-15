@@ -1,21 +1,21 @@
-"Descripci髇: Este script forma parte del protocolo para el monitoreo ecol骻ico de las playas de anidaci髇
-de tortugas marinas. Este script unifica los datos del indicador 2 (n鷐ero de nidos por especie).
-Verificar que cada columna de nidos seg鷑 la especie tenga la misma cantidad de datos. Agregar cero cuando
+"Descripci贸n: Este script forma parte del protocolo para el monitoreo ecol贸gico de las playas de anidaci贸n
+de tortugas marinas. Este script unifica los datos del indicador 2 (n煤mero de nidos por especie).
+Verificar que cada columna de nidos seg煤n la especie tenga la misma cantidad de datos. Agregar cero cuando
 en el monitoreo no presenta nidos
 
 Cambiar orden de variables a formato ind3
 
-Creaci髇: 8 de septiembre 2020
-趌tima modificaci髇: 21 de septiembre 2020
+Creaci贸n: 8 de septiembre 2020
+脷ltima modificaci贸n: 21 de septiembre 2020
 Autora: Abelis
 "
 
 #Activar librerias
-library(readxl) #lectura archivos de excel con funci髇 read_xlsx
+library(readxl) #lectura archivos de excel con funci贸n read_xlsx
 library(dplyr) # Calculos estadisticos
 library(janitor) #cambio de formato de fecha de excel a yyyy-mm-dd
-library(reshape2) # Transformacion de marco de datos con funci髇 melt
-library(ggplot2) #visualizaci髇 de datos
+library(reshape2) # Transformacion de marco de datos con funci贸n melt
+library(ggplot2) #visualizaci贸n de datos
 
 #####library(lubridate) # lectura de fecha en formato 
 
@@ -23,13 +23,13 @@ library(ggplot2) #visualizaci髇 de datos
 
 #Limpiar escritorio de trabajo
 rm(list = ls())
-# Definir area de conservaci髇, area silvestre protegida
-##  Nombre de area de conservaci髇
-AC <- readline(prompt="Favor ingresar nombre de 醨ea de conservaci髇: ")
+# Definir area de conservaci贸n, area silvestre protegida
+##  Nombre de area de conservaci贸n
+AC <- readline(prompt="Favor ingresar nombre de 谩rea de conservaci贸n: ")
 ACOPAC  
 
 ## Nombre de area silvestre protegida
-ASP <- readline(prompt="Favor ingresar nombre de 醨ea silvestre protegida: ")
+ASP <- readline(prompt="Favor ingresar nombre de 谩rea silvestre protegida: ")
 RNVSPHPM  
 
 ## Temporada
@@ -38,11 +38,11 @@ Temporada <- readline(prompt="Favor ingresar temporada de monitoreo: ")
 
 
 ## Importar datos
-    "Definir casillas con datos con la extenci髇 range = ,
-    definir temporada con la extenci髇 sheet ="
+    "Definir casillas con datos con la extenci贸n range = ,
+    definir temporada con la extenci贸n sheet ="
 
 
-df <- read_xlsx("C:/Users/Isabel/Desktop/PPS/Proyecto PRONAMEC/Bases de datos/PARQUE NACIONAL SANTA ROSA.xlsm", 
+df <- read_xlsx("PARQUE NACIONAL SANTA ROSA.xlsm", 
                sheet = "F 2017 Indicador 2", range = "B5:L370", col_names = TRUE, na ="")
 
 View(df)
@@ -51,7 +51,7 @@ colnames(df)
 ## Marco de datos completo
 # Definir variables y marco de datos 
 fecha <-  df$Fecha
-a駉_ <-factor(format(as.Date(fecha), "%Y"))
+a帽o_ <-factor(format(as.Date(fecha), "%Y"))
 mes_ <-factor(format(as.Date(fecha), "%Y-%m"))
 nido_lora <- as.numeric(unlist(df[4]))
 nido_verde <- as.numeric(unlist(df[5]))
@@ -123,20 +123,20 @@ ind_18_19 <- ind_2
 
 View(ind_17_18)
 
-#concatenar datos por a駉
+#concatenar datos por a帽o
 df_17_18<- rbind (ind_17_18, ind_18_19)
 
 df_17_18<- ind_17_18
 
 
 #########################################################################################################################
-##Visualizaci髇 de datos
+##Visualizaci贸n de datos
 
 ggplot(df_17_18, aes(  x = Temporada, y = sumas_nidos, color = Estado_nido, group= Especie, shape= Especie)) +
   geom_point() +  geom_line() +  theme_bw() +
   theme(panel.grid.major = element_blank(),panel.grid.minor = element_blank())+
-  ggtitle("Indicador 2: n鷐ero de nidos por especie") +
-  labs(x ="Temporada", y = "N鷐ero de nidos") +
+  ggtitle("Indicador 2: n煤mero de nidos por especie") +
+  labs(x ="Temporada", y = "N煤mero de nidos") +
   scale_color_discrete(name = "Estado del nido", labels = c("No saqueado", "Saqueado"))
 
 
