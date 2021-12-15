@@ -30,7 +30,7 @@ RNVSPHPM
 #libreria openxlsx
 "Para el indicador 1, todos los datos se encuentran en la hoja Formulario Indicador 1 "
 
-df<-read.xlsx("C:/Users/Isabel/Desktop/PPS/Proyecto PRONAMEC/Bases de datos/PARQUE NACIONAL SANTA ROSA.xlsm", 
+df<-read.xlsx("Bases de datos/PARQUE NACIONAL SANTA ROSA.xlsm", 
               sheet = "Formulario Indicador 1")
 View(df)
 
