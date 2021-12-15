@@ -37,7 +37,7 @@ Lora
 
 ## Importar datos
   #con paquete readxl
-df <- read_xlsx("PARQUE NACIONAL SANTA ROSA.xlsm",
+df <- read_xlsx("Datos.xlsm",
                 sheet = "F 2017 Lora Indicador 3",
                 col_types = c("date", "date","date", rep("numeric",12)),
                 range = "B7:P370", col_names = TRUE)
