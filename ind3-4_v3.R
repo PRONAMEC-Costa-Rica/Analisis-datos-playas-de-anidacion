@@ -1,33 +1,33 @@
-"Descripci髇: Este script forma parte del protocolo para el monitoreo ecol骻ico de las playas de anidaci髇
+"Descripci贸n: Este script forma parte del protocolo para el monitoreo ecol贸gico de las playas de anidaci贸n
 de tortugas marinas. Este script unifica los datos del indicador 3 (Porcentaje de emergencia de las nidadas
 en la playa y el indicador 4 (Fertilidad de las nidadas en la playa)
 
-Entrada: datos protocolo para el monitoreo ecol骻ico de las playas de anidaci髇 de tortugas marinas SINAC
+Entrada: datos protocolo para el monitoreo ecol贸gico de las playas de anidaci贸n de tortugas marinas SINAC
          en formato .xlsm
 Salida: datos unificados
-Fecha de creaci髇: 8 de septiembre 2020
-Fecha de modificaci髇: 21 de septiembre 2020
+Fecha de creaci贸n: 8 de septiembre 2020
+Fecha de modificaci贸n: 21 de septiembre 2020
 Autora: Abelis
 "
 
 #Activar librerias
 library (readxl) # definir tipos de variables
 library(plyr) # Calculos estadisticos
-library(reshape2) # Transformacion de marco de datos con funci髇 melt
-library(ggplot2) # Vizualizaci髇 de datos
+library(reshape2) # Transformacion de marco de datos con funci贸n melt
+library(ggplot2) # Vizualizaci贸n de datos
 library(janitor) #cambiar formato de fecha de excel a yyyy-mm-dd
 
 
 #Limpiar escritorio de trabajo
 rm(list = ls())
 
-# Definir area de conservaci髇, area silvestre protegida
-##  Nombre de area de conservaci髇
-AC <- readline(prompt="Favor ingresar nombre de 醨ea de conservaci髇: ")
+# Definir area de conservaci贸n, area silvestre protegida
+##  Nombre de area de conservaci贸n
+AC <- readline(prompt="Favor ingresar nombre de 谩rea de conservaci贸n: ")
 ACOPAC  
 
 ## Nombre de area silvestre protegida
-ASP <- readline(prompt="Favor ingresar nombre de 醨ea silvestre protegida: ")
+ASP <- readline(prompt="Favor ingresar nombre de 谩rea silvestre protegida: ")
 RNVSPHPM  
 
 #Definir especie
@@ -37,7 +37,7 @@ Lora
 
 ## Importar datos
   #con paquete readxl
-df <- read_xlsx("C:/Users/Isabel/Desktop/PPS/Proyecto PRONAMEC/Bases de datos/PARQUE NACIONAL SANTA ROSA.xlsm",
+df <- read_xlsx("PARQUE NACIONAL SANTA ROSA.xlsm",
                 sheet = "F 2017 Lora Indicador 3",
                 col_types = c("date", "date","date", rep("numeric",12)),
                 range = "B7:P370", col_names = TRUE)
@@ -46,9 +46,9 @@ View(df)
 
 
 ## Definir variables y marco de datos
-#fecha1<- na.omit(df$"Fecha exhumaci髇")
+#fecha1<- na.omit(df$"Fecha exhumaci贸n")
 fecha <- format(as.Date(df[1][!is.na(df[1])]))
-a駉_ <-format(as.Date(fecha), "%Y") 
+a帽o_ <-format(as.Date(fecha), "%Y") 
 mes_ <-factor(format(as.Date(fecha), "%Y-%m") )
 dia_ <-format(as.Date(fecha), "%Y-%m-%d") 
 hora <- format(as.POSIXct(df$Hora,format="%Y-%m-%d %H:%M:%S"),format='%H:%M:%S') # Definir hora : formato %H:%M:%S ## Fijarse en hora original
@@ -62,18 +62,18 @@ cascaras <- df[9][!is.na(df[9])]
 vivas <- df[10][!is.na(df[10])]
 muertas <- df[11][!is.na(df[11])]
 huevos <- df[12][!is.na(df[12])]
-eclosi髇 <- df[13][!is.na(df[13])]
+eclosi贸n <- df[13][!is.na(df[13])]
 emergencia <- df[14][!is.na(df[14])]
 fertilidad <- df[15][!is.na(df[15])]
 
 
-df_ind3_4 <- data.frame (AC, ASP, especie, fecha, a駉_ ,mes_,
+df_ind3_4 <- data.frame (AC, ASP, especie, fecha, a帽o_ ,mes_,
                         embrion_0,
                         embrion_1, embrion_2, 
                         embrion_3, embrion_4, 
                         cascaras , vivas,
                         muertas, huevos ,
-                        eclosi髇 , emergencia, fertilidad )
+                        eclosi贸n , emergencia, fertilidad )
 View(df_ind3_4)
 ################################################################################
 
@@ -81,7 +81,7 @@ View(df_ind3_4)
 
 
 #Calculo de promedios
-prom_mensual_eclosion <- ddply(df_ind3_4, .(mes_) , summarize, mean=mean(eclosi髇))
+prom_mensual_eclosion <- ddply(df_ind3_4, .(mes_) , summarize, mean=mean(eclosi贸n))
 prom_mensual_eclosion$ind<- "3"
 prom_mensual_emergencia <- ddply(df_ind3_4, .(mes_) , summarize, mean=mean(emergencia))
 prom_mensual_fertilidad <- ddply(df_ind3_4, .(mes_) , summarize, mean=mean(fertilidad))
@@ -97,12 +97,12 @@ df_emerg <- melt(df_emerg,id.vars="mes_") # melt: transformar marco de datos con
 View(df_emerg)
 
 
-### Combinar datos por a駉
-##agregar marco de datos a datos por a駉 
+### Combinar datos por a帽o
+##agregar marco de datos a datos por a帽o 
 #df_2017_lora<-df1
 #df_2017_verde<-df1
 
-##concatenar datos por a駉
+##concatenar datos por a帽o
 #df_17_lv<- rbind (df_2017_lora, df_2017_verde)
 
 #View(df_17_lv)
@@ -110,11 +110,11 @@ View(df_emerg)
 ##Visualizacion de datos
 
   # Diagrama de cajas
-  ggplot(df_ind3_4, aes(x=mes_, y=eclosi髇)) + 
+  ggplot(df_ind3_4, aes(x=mes_, y=eclosi贸n)) + 
     geom_boxplot() +  theme_bw() +
     stat_summary(fun = "mean", color="red")+
     theme(panel.grid.major = element_blank(),panel.grid.minor = element_blank())+
-    labs(x ="Fecha (AAAA-MM)", y = "Porcentaje de eclosi髇 (%)") 
+    labs(x ="Fecha (AAAA-MM)", y = "Porcentaje de eclosi贸n (%)") 
 
 
 help("stat_summary")
@@ -124,7 +124,7 @@ help("stat_summary")
     geom_bar(position="dodge", stat = "identity") + theme_bw() +
     theme(panel.grid.major = element_blank(),panel.grid.minor = element_blank())+
     labs(x ="Fecha (AAAA-MM)", y = "Porcentaje promedio (%)")+
-    scale_fill_discrete(name = "Indicador", labels = c("4: Fertilidad", "Eclosi髇", "3: Emergencia" ))
+    scale_fill_discrete(name = "Indicador", labels = c("4: Fertilidad", "Eclosi贸n", "3: Emergencia" ))
   
   
   
