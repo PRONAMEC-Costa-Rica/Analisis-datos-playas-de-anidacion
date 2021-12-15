@@ -36,7 +36,7 @@ Temporada  <- readline(prompt="Favor ingresar temporada: ")
 
 ## Importar datos
 
-df <- read_xlsx("PARQUE NACIONAL SANTA ROSA.xlsm", 
+df <- read_xlsx("Datos.xlsm", 
                 sheet = "F 2017 Verde Indicador 5", skip = 2)
 
 View(df)
